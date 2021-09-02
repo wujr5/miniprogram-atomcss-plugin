@@ -54,7 +54,12 @@ module.exports = {
     new MiniprogramAtomcssPlugin(),
   ]
 };
+```
 
+**将生成的原子类wxss文件引入app.wxss中**
+
+```css
+@import 'atomcss.wxss';
 ```
 
 **项目根目录下的：atomcss.config.js**
