@@ -34,6 +34,7 @@ module.exports = {
     path: __dirname,
     filename: 'atomcss.wxss',
   },
+  // loader 读取 wxml 文件生成原子类
   module: {
     rules: [{
       test: /.wxml$/,
@@ -42,11 +43,13 @@ module.exports = {
       }]
     }]
   },
+  // watch 选项
   watch: true,
   watchOptions: {
     ignored: /node_modules/,
     poll: 500
   },
+  // 配置原子类生成插件
   plugins: [
     new MiniprogramAtomcssPlugin(),
   ]
@@ -104,7 +107,6 @@ module.exports = {
 
 * 不包含 `$` 符号，使用时类名直接使用，不可包含数字
 * 如：`.bg-red': 'background: red;`，使用时直接使用：`.bg-red`
-
 
 ## 数值原子类
 
