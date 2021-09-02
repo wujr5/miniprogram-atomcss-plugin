@@ -1,0 +1,12 @@
+{
+  "name": "miniprogram-atomcss-plugin",
+  "version": "1.0.0",
+  "miniprogram": "dist",
+  "description": "基于微信小程序的按需生成原子类样式的webpack插件",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "cd test && npm run dev"
+  },
+  "author": "吴家荣",
+  "license": "ISC"
+}

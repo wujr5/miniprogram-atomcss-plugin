@@ -1,0 +1,2 @@
+@import './atomcss.wxss';
+@import './atomcss-common.wxss';
