@@ -2,63 +2,66 @@ const fs = require('fs');
 
 let oClassNameMap = {
   // margin
-  '.m': 'margin:$rpx;',
-  '.ml': 'margin-left:$rpx;',
-  '.mr': 'margin-right:$rpx;',
-  '.mt': 'margin-top:$rpx;',
-  '.mb': 'margin-bottom:$rpx;',
-  '.mx': 'margin-left:$rpx;margin-right:$rpx;',
-  '.my': 'margin-top:$rpx;margin-bottom:$rpx;',
+  '.m': 'margin:$rpx',
+  '.ml': 'margin-left:$rpx',
+  '.mr': 'margin-right:$rpx',
+  '.mt': 'margin-top:$rpx',
+  '.mb': 'margin-bottom:$rpx',
+  '.mx': 'margin-left:$rpx;margin-right:$rpx',
+  '.my': 'margin-top:$rpx;margin-bottom:$rpx',
   // margin !important
-  '.mi': 'margin:$rpx !important;',
-  '.mli': 'margin-left:$rpx !important;',
-  '.mri': 'margin-right:$rpx !important;',
-  '.mti': 'margin-top:$rpx !important;',
-  '.mbi': 'margin-bottom:$rpx !important;',
-  '.mxi': 'margin-left:$rpx !important;margin-right:$rpx !important;',
-  '.myi': 'margin-top:$rpx !important;margin-bottom:$rpx !important;',
+  '.mi': 'margin:$rpx !important',
+  '.mli': 'margin-left:$rpx !important',
+  '.mri': 'margin-right:$rpx !important',
+  '.mti': 'margin-top:$rpx !important',
+  '.mbi': 'margin-bottom:$rpx !important',
+  '.mxi': 'margin-left:$rpx !important;margin-right:$rpx !important',
+  '.myi': 'margin-top:$rpx !important;margin-bottom:$rpx !important',
   // padding
-  '.p': 'padding:$rpx;',
-  '.pl': 'padding-left:$rpx;',
-  '.pr': 'padding-right:$rpx;',
-  '.pt': 'padding-top:$rpx;',
-  '.pb': 'padding-bottom:$rpx;',
-  '.px': 'padding-left:$rpx;padding-right:$rpx;',
-  '.py': 'padding-top:$rpx;padding-bottom:$rpx;',
+  '.p': 'padding:$rpx',
+  '.pl': 'padding-left:$rpx',
+  '.pr': 'padding-right:$rpx',
+  '.pt': 'padding-top:$rpx',
+  '.pb': 'padding-bottom:$rpx',
+  '.px': 'padding-left:$rpx;padding-right:$rpx',
+  '.py': 'padding-top:$rpx;padding-bottom:$rpx',
   // padding !important
-  '.pi': 'padding:$rpx !important;',
-  '.pli': 'padding-left:$rpx !important;',
-  '.pri': 'padding-right:$rpx !important;',
-  '.pti': 'padding-top:$rpx !important;',
-  '.pbi': 'padding-bottom:$rpx !important;',
-  '.pxi': 'padding-left:$rpx !important;padding-right:$rpx !important;',
-  '.pyi': 'padding-top:$rpx !important;padding-bottom:$rpx !important;',
+  '.pi': 'padding:$rpx !important',
+  '.pli': 'padding-left:$rpx !important',
+  '.pri': 'padding-right:$rpx !important',
+  '.pti': 'padding-top:$rpx !important',
+  '.pbi': 'padding-bottom:$rpx !important',
+  '.pxi': 'padding-left:$rpx !important;padding-right:$rpx !important',
+  '.pyi': 'padding-top:$rpx !important;padding-bottom:$rpx !important',
   // width
-  '.w': 'width:$rpx;',
-  '.wi': 'width:$rpx !important;',
-  '.mw': 'min-width:$rpx;',
-  '.wp': 'width:$%;',
-  '.wpi': 'width:$% !important;',
+  '.w': 'width:$rpx',
+  '.wi': 'width:$rpx !important',
+  '.mw': 'min-width:$rpx',
+  '.wp': 'width:$%',
+  '.wpi': 'width:$% !important',
   // height
-  '.h': 'height:$rpx;',
-  '.hi': 'height:$rpx !important;',
-  '.mh': 'min-height:$rpx;',
-  '.hp': 'height:$%;',
-  '.hpi': 'height:$% !important;',
+  '.h': 'height:$rpx',
+  '.hi': 'height:$rpx !important',
+  '.mh': 'min-height:$rpx',
+  '.hp': 'height:$%',
+  '.hpi': 'height:$% !important',
   // 四方向
-  '.l': 'left:$rpx;',
-  '.r': 'right:$rpx;',
-  '.t': 'top:$rpx;',
-  '.b': 'bottom:$rpx;',
+  '.l': 'left:$rpx',
+  '.r': 'right:$rpx',
+  '.t': 'top:$rpx',
+  '.b': 'bottom:$rpx',
   // 行高
-  '.lh': 'line-height:$rpx;',
+  '.lh': 'line-height:$rpx',
   // 字体
-  '.fs': 'font-size:$rpx;',
-  '.fw': 'font-weight:$;',
+  '.fs': 'font-size:$rpx',
+  '.fw': 'font-weight:$',
   // background
-  '.bgs': 'background-size:$rpx;',
+  '.bgs': 'background-size:$rpx',
   // border
-  '.br': 'border-radius:$rpx;'
+  '.br': 'border-radius:$rpx',
+  // 颜色
+  '.c': 'color: #',
+  '.bgc': 'background-color: #',
 };
 
 let oAtomConfig = {}
@@ -80,6 +83,10 @@ for (let key in oClassNameMap) {
   // 数值原子类的正则
   if (value.indexOf('$') != -1) {
     sAtomRegExp += `\\${key}-[0-9]+|`;
+  }
+  // 色值原子类正则
+  else if (value.indexOf('#') != -1) {
+    sAtomRegExp += `\\${key}-[0-9a-fA-F]+|`;
   // 通用原子类的正则
   } else {
     sAtomRegExp += `\\${key}|`
@@ -107,8 +114,16 @@ module.exports = function(sSource) {
   aClassName.forEach(item => {
     let sKey;
 
-    if (/\d+/.test(item)) {
+    let bColorFlag = oClassNameMap[item.split('-')[0]] && oClassNameMap[item.split('-')[0]].indexOf('#') != -1;
+
+    // 色值类
+    if (bColorFlag) {
       sKey = item.match(/\.\w+/)[0];
+    }
+    // 数值类
+    else if (/\d+/.test(item)) {
+      sKey = item.match(/\.\w+/)[0];
+    // 通用类
     } else {
       sKey = item;
     }
@@ -119,10 +134,14 @@ module.exports = function(sSource) {
     if (['.wp', '.hp', '.fw'].includes(sKey)) {
       nValue = item.match(/\d+/)[0];
     } else {
-      /\d+/.test(item) && (nValue = +item.match(/\d+/)[0]);
+      if (bColorFlag) {
+        nValue = '#' + item.split('-')[1]
+      } else {
+        /\d+/.test(item) && (nValue = +item.match(/\d+/)[0]);
+      }
     }
 
-    aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`);
+    aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\$|\#/g, nValue)}}`);
   });
 
   return `'' + '${aStyleStr.join('')}'`;

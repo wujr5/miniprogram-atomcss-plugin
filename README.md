@@ -71,11 +71,11 @@ module.exports = {
 // atomcss.config.js
 module.exports = {
   // 数值原子类定制
-  '.fsize': 'font-size: $rpx;',
-  '.bd': 'border: $rpx solid #e1e5ee;',
+  '.fsize': 'font-size: $rpx',
+  '.bd': 'border: $rpx solid #e1e5ee',
 
   // 通用原子类定制
-  '.bg-red': 'background: red;',
+  '.bg-red': 'background: red',
 }
 ```
 
@@ -113,11 +113,14 @@ npm run dev
 // atomcss.config.js
 module.exports = {
   // 数值原子类配置示例
-  '.fsize': 'font-size: $rpx;',
-  '.bd': 'border: $rpx solid #e1e5ee;',
+  '.fsize': 'font-size: $rpx',
+  '.bd': 'border: $rpx solid #e1e5ee',
 
   // 通用原子类配置示例
-  '.bg-red': 'background: red;',
+  '.bgred': 'background: red',
+
+  // 色值类原子类配置示例
+  '.backcolor': 'background-color: #'
 
   // ... 你的配置
 }
@@ -127,12 +130,19 @@ module.exports = {
 
 * 包含 `$` 符号，此符号代表属性值中的数字，`vue-atomcss-loader` 会将此替换成类名内的数值
 * 使用形式为：`.fsize-100`，数字与主体用 `-` 隔开
-* 如：`.fsize: font-size: $rpx;`，`.fsize-100`，会生成css：`.fsize-100{font-size: 100rpx}`
+* 如：`.fsize: font-size: $rpx;`，`.fsize-100`，会生成 css：`.fsize-100{font-size: 100rpx}`
+
+**色值原子类定制**
+
+* 包含 `#` 符号，此符号代表属性值中的色值，只支持十六进制表示的 rgb 色值，`vue-atomcss-loader` 会将此替换成类名内的色值
+* 使用形式为：`.backcolor-aa33dd`，色值与主体用 `-` 隔开
+* 如：`.backcolor': 'background-color: #;`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
 
 **通用原子类定制**
 
 * 不包含 `$` 符号，使用时类名直接使用，不可包含数字
-* 如：`.bg-red': 'background: red;`，使用时直接使用：`.bg-red`
+* 如：`.bgred': 'background: red;`，使用时直接使用：`.bgred`
+
 
 ## 数值原子类
 
@@ -271,6 +281,22 @@ module.exports = {
 .lh-100{line-height: 100rpx}
 .fs-40{font-size: 40rpx}
 .fw-600{font-weight: 600}
+```
+
+## 色值值原子类
+
+### color、background-color
+
+例子：
+
+```html
+<!-- wxml -->
+<view class="c-123a6d bgc-00ff00"></view>
+```
+
+```css
+.c-123a6d{color: #123a6d}
+.bgc-00ff00{background-color: #00ff00}
 ```
 
 ## 通用原子类
