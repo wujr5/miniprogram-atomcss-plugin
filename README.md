@@ -76,6 +76,14 @@ module.exports = {
 }
 ```
 
+**引用通用原子类**
+
+在 `app.wxss` 中引入：
+
+```scss
+@import 'miniprogram-atomcss-plugin/atomcss-common.wxss';
+```
+
 ### 运行
 
 在 `package.json` 中增加脚本指令
@@ -92,14 +100,6 @@ module.exports = {
 
 ```
 npm run dev
-```
-
-**引用通用原子类**
-
-在 `app.wxss` 中引入：
-
-```scss
-@import 'miniprogram-atomcss-plugin/atomcss-common.wxss';
 ```
 
 ## 定制原子类
