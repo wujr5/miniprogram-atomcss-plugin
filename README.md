@@ -9,7 +9,8 @@
 ### 安装
 
 ```
-npm i -D webpack webpack-cli miniprogram-atomcss-plugin
+npm i -S miniprogram-atomcss-plugin
+npm i -D webpack webpack-cli
 ```
 
 安装后需要在**微信开发者工具**中[构建npm](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html#_2-%E6%9E%84%E5%BB%BA-npm)。
@@ -81,7 +82,7 @@ module.exports = {
 在 `app.wxss` 中引入：
 
 ```scss
-@import 'miniprogram-atomcss-plugin/atomcss-common.wxss';
+@import '/miniprogram_npm/miniprogram-atomcss-plugin/atomcss-common.wxss';
 ```
 
 ### 运行
