@@ -92,7 +92,7 @@ sAtomRegExp = sAtomRegExp.substr(0, sAtomRegExp.length - 1);
 module.exports = function(sSource) {
   let atomReg = new RegExp(sAtomRegExp, 'ig');
 
-  let sClassString = '.' + (sSource.match(/class=("|')([a-zA-Z0-9 \- _]*)("|')/ig) || []).map(item => item.replace(/class=('|")|("|')/g, '').split(' ').join('.')).join('.');
+  let sClassString = '.' + (sSource.match(/class=("|')([a-zA-Z0-9 \- _\{\}><\?\.'":\+\-\*\/\(\)\%\$\&\!\~\^\=]*)("|')/ig) || []).map(item => item.replace(/class=('|")|("|')/g, '').split(' ').join('.')).join('.');
 
   // 获取 pc 端原子类类名数组，并剔除重复的类名
   function uniq(value, index, self) {
