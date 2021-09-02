@@ -1,4 +1,4 @@
-const MiniprogramAtomcssPlugin = require('../dist/plugin');
+const MiniprogramAtomcssPlugin = require('../plugin');
 const getFiles = MiniprogramAtomcssPlugin.getFiles;
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     rules: [{
       test: /.wxml$/,
       use: [{
-        loader: '../dist/loader.js'
+        loader: '../loader.js'
       }]
     }]
   },

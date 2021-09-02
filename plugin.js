@@ -36,6 +36,12 @@ class MiniprogramAtomcssPlugin {
           content += eval(module._source._value);
         })
 
+        // 去重
+        function uniq(value, index, self) {
+          return self.indexOf(value) === index;
+        }
+        content = content.split('.').filter(uniq).join('.');
+
         // 更新 output.filename 中指定的输出文件
         compilation.updateAsset(
           Object.keys(assets)[0],
