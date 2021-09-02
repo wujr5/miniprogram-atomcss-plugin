@@ -81,7 +81,7 @@ module.exports = {
   '.backcolor': 'background-color: #'
 
   // ... 你的配置
-}g
+}
 ```
 
 **引用通用原子类**
