@@ -61,6 +61,18 @@ let oClassNameMap = {
   '.br': 'border-radius:$rpx;'
 };
 
+let oAtomConfig = {}
+
+// 读取配置文件，如果不存在，就是用默认的配置文件
+try {
+  oAtomConfig = require(__dirname + '/../../atomcss.config.js');
+} catch (e) {
+  oAtomConfig = require(__dirname + '/atomcss.config.js');
+}
+
+oClassNameMap = Object.assign(oClassNameMap, oAtomConfig);
+
+// 生成正则表达式
 let sAtomRegExp = '';
 for (let key in oClassNameMap) {
   let value = oClassNameMap[key];

@@ -9,16 +9,17 @@
 ### 安装
 
 ```
-npm i -D miniprogram-atomcss-plugin
+npm i -D webpack webpack-cli miniprogram-atomcss-plugin
 ```
+
+安装后需要在**微信开发者工具**中[构建npm](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html#_2-%E6%9E%84%E5%BB%BA-npm)。
 
 ### 配置
 
 **webpack配置**
 
-> webpack.config.js
-
 ```js
+// webpack.config.js
 const MiniprogramAtomcssPlugin = require('miniprogram-atomcss-plugin');
 const getFiles = MiniprogramAtomcssPlugin.getFiles;
 
