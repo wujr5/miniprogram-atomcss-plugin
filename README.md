@@ -8,6 +8,8 @@
 
 ### 安装
 
+> 需使用 webpack 5.x
+
 ```
 npm i -S miniprogram-atomcss-plugin
 npm i -D webpack webpack-cli
