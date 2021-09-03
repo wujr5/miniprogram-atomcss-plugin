@@ -146,7 +146,7 @@ module.exports = {
 **通用原子类定制**
 
 * 不包含 `$` 和 `#` 符号，使用时类名直接使用，不可包含数字
-* 如：`.bgred: background: red;`，使用时直接使用：`.bgred`
+* 如：`.bgred: 'background: red'`，使用时直接使用：`.bgred`
 
 ## 数值原子类
 
