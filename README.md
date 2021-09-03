@@ -135,13 +135,13 @@ module.exports = {
 
 * 包含 `$` 符号，此符号代表属性值中的数字，`vue-atomcss-loader` 会将此替换成类名内的数值
 * 使用形式为：`.fsize-100`，数字与主体用 `-` 隔开
-* 如：`.fsize: font-size: $rpx;`，`.fsize-100`，会生成 css：`.fsize-100{font-size: 100rpx}`
+* 如：`.fsize: 'font-size: $rpx'`，`.fsize-100`，会生成 css：`.fsize-100{font-size: 100rpx}`
 
 **色值原子类定制**
 
 * 包含 `#` 符号，此符号代表属性值中的色值，只支持十六进制表示的 rgb 色值，`vue-atomcss-loader` 会将此替换成类名内的色值
 * 使用形式为：`.backcolor-aa33dd`，色值与主体用 `-` 隔开
-* 如：`.backcolor: background-color: #;`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
+* 如：`.backcolor: 'background-color: #'`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
 
 **通用原子类定制**
 
