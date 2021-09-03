@@ -141,12 +141,12 @@ module.exports = {
 
 * 包含 `#` 符号，此符号代表属性值中的色值，只支持十六进制表示的 rgb 色值，`vue-atomcss-loader` 会将此替换成类名内的色值
 * 使用形式为：`.backcolor-aa33dd`，色值与主体用 `-` 隔开
-* 如：`.backcolor': 'background-color: #;`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
+* 如：`.backcolor: background-color: #;`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
 
 **通用原子类定制**
 
 * 不包含 `$` 符号，使用时类名直接使用，不可包含数字
-* 如：`.bgred': 'background: red;`，使用时直接使用：`.bgred`
+* 如：`.bgred: background: red;`，使用时直接使用：`.bgred`
 
 
 ## 数值原子类
