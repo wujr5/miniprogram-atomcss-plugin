@@ -1,3 +1,0 @@
-<view class="h-90 lh-90 bg-red">测试原子类</view>
-
-<!-- <view class="{{k = selector.asdfsdf + (1 - 2) * 3 / 4 % 3 ~ 4 + 5^ + $sdf > 0 ? 'h-30 lh-30' : 'w-30'}}">测试原子类2</view> -->

@@ -112,36 +112,24 @@ module.exports = function(sSource) {
 
   // 开始生成原子类
   aClassName.forEach(item => {
-    let sKey;
-
-    let bColorFlag = oClassNameMap[item.split('-')[0]] && oClassNameMap[item.split('-')[0]].indexOf('#') != -1;
+    let bColorFlag = oClassNameMap[item.split('-')[0]] && oClassNameMap[item.split('-')[0]].indexOf('$') == -1 && oClassNameMap[item.split('-')[0]].indexOf('#') != -1;
 
     // 色值类
     if (bColorFlag) {
-      sKey = item.match(/\.\w+/)[0];
+      let sKey = item.match(/\.\w+/)[0];
+      let nValue = '#' + item.split('-')[1];
+      aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\#/g, nValue)}}`);
     }
     // 数值类
     else if (/\d+/.test(item)) {
-      sKey = item.match(/\.\w+/)[0];
+      let sKey = item.match(/\.\w+/)[0];
+      let nValue = +item.match(/\d+/)[0];
+      aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`);
     // 通用类
     } else {
-      sKey = item;
+      let sKey = item;
+      aStyleStr.push(`${item}{${oClassNameMap[sKey]}}`);
     }
-
-    let nValue;
-
-    // 百分比数值，字重，无需使用单位
-    if (['.wp', '.hp', '.fw'].includes(sKey)) {
-      nValue = item.match(/\d+/)[0];
-    } else {
-      if (bColorFlag) {
-        nValue = '#' + item.split('-')[1]
-      } else {
-        /\d+/.test(item) && (nValue = +item.match(/\d+/)[0]);
-      }
-    }
-
-    aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\$|\#/g, nValue)}}`);
   });
 
   return `'' + '${aStyleStr.join('')}'`;
