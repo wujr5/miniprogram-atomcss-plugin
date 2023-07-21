@@ -15,11 +15,11 @@ npm i -S miniprogram-atomcss-plugin
 npm i -D webpack webpack-cli
 ```
 
-安装后需要在**微信开发者工具**中[构建npm](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html#_2-%E6%9E%84%E5%BB%BA-npm)。
+安装后需要在**微信开发者工具**中[构建 npm](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html#_2-%E6%9E%84%E5%BB%BA-npm)。
 
 ### 配置
 
-**webpack配置**
+**webpack 配置**
 
 ```js
 // webpack.config.js
@@ -29,8 +29,7 @@ const getFiles = MiniprogramAtomcssPlugin.getFiles;
 module.exports = {
   mode: 'production',
   entry: () => {
-    return getFiles('./pages')
-      .filter((item => item.endsWith('.wxml')));
+    return getFiles('./pages').filter((item) => item.endsWith('.wxml'));
   },
   // 生成的原子类文件位置和文件名，根据需要进行修改
   output: {
@@ -39,27 +38,33 @@ module.exports = {
   },
   // loader 读取 wxml 文件生成原子类
   module: {
-    rules: [{
-      test: /.wxml$/,
-      use: [{
-        loader: 'miniprogram-atomcss-plugin/loader'
-      }]
-    }]
+    rules: [
+      {
+        test: /.wxml$/,
+        use: [
+          {
+            loader: 'miniprogram-atomcss-plugin/loader',
+            options: {
+              // 配置文件的相对路径
+              config: './src/atomcss.config.js',
+            },
+          },
+        ],
+      },
+    ],
   },
   // watch 选项
   watch: true,
   watchOptions: {
     ignored: /node_modules/,
-    poll: 500
+    poll: 500,
   },
   // 配置原子类生成插件
-  plugins: [
-    new MiniprogramAtomcssPlugin(),
-  ]
+  plugins: [new MiniprogramAtomcssPlugin()],
 };
 ```
 
-**将生成的原子类wxss文件引入app.wxss中**
+**将生成的原子类 wxss 文件引入 app.wxss 中**
 
 ```css
 @import 'atomcss.wxss';
@@ -81,7 +86,7 @@ module.exports = {
   '.bgred': 'background: red',
 
   // ... 你的配置
-}
+};
 ```
 
 **引用通用原子类**
@@ -128,25 +133,25 @@ module.exports = {
   '.bgred': 'background: red',
 
   // ... 你的配置
-}
+};
 ```
 
 **数值原子类定制**
 
-* 包含 `$` 符号，此符号代表属性值中的数字，`vue-atomcss-loader` 会将此替换成类名内的数值
-* 使用形式为：`.fsize-100`，数字与主体用 `-` 隔开
-* 如：`.fsize: 'font-size: $rpx'`，`.fsize-100`，会生成 css：`.fsize-100{font-size: 100rpx}`
+- 包含 `$` 符号，此符号代表属性值中的数字，`vue-atomcss-loader` 会将此替换成类名内的数值
+- 使用形式为：`.fsize-100`，数字与主体用 `-` 隔开
+- 如：`.fsize: 'font-size: $rpx'`，`.fsize-100`，会生成 css：`.fsize-100{font-size: 100rpx}`
 
 **色值原子类定制**
 
-* 包含 `#` 符号，此符号代表属性值中的色值，只支持十六进制表示的 rgb 色值，`vue-atomcss-loader` 会将此替换成类名内的色值
-* 使用形式为：`.backcolor-aa33dd`，色值与主体用 `-` 隔开
-* 如：`.backcolor: 'background-color: #'`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
+- 包含 `#` 符号，此符号代表属性值中的色值，只支持十六进制表示的 rgb 色值，`vue-atomcss-loader` 会将此替换成类名内的色值
+- 使用形式为：`.backcolor-aa33dd`，色值与主体用 `-` 隔开
+- 如：`.backcolor: 'background-color: #'`，`.backcolor-aa33dd`，会生成 css：`.backcolor-aa33dd{background-color: #aa33dd}`
 
 **通用原子类定制**
 
-* 不包含 `$` 和 `#` 符号，使用时类名直接使用，不可包含数字
-* 如：`.bgred: 'background: red'`，使用时直接使用：`.bgred`
+- 不包含 `$` 和 `#` 符号，使用时类名直接使用，不可包含数字
+- 如：`.bgred: 'background: red'`，使用时直接使用：`.bgred`
 
 ## 数值原子类
 
@@ -156,13 +161,13 @@ module.exports = {
 
 **`margin`对应的缩写：**
 
-* margin: m
-* margin-left: ml
-* margin-right: mr
-* margin-top: mt
-* margin-bottom: mb
-* margin-left & margin-right: mx
-* margin-top & margin-bottom: my
+- margin: m
+- margin-left: ml
+- margin-right: mr
+- margin-top: mt
+- margin-bottom: mb
+- margin-left & margin-right: mx
+- margin-top & margin-bottom: my
 
 例子：
 
@@ -171,27 +176,43 @@ module.exports = {
 <view class="m-10 ml-10 mr-10 mt-10 mb-10 mx-10 my-10"></view>
 ```
 
-最终会生成如下css：
+最终会生成如下 css：
 
 ```css
-.m-10{margin: 10rpx}
-.ml-10{margin-left: 10rpx}
-.mr-10{margin-right: 10rpx}
-.mt-10{margin-top:10rpx}
-.mb-10{margin-bottom: 10rpx}
-.mx-10{margin-left: 10rpx; margin-right: 10rpx}
-.my-10{margin-top: 10rpx; margin-bottom: 10rpx}
+.m-10 {
+  margin: 10rpx;
+}
+.ml-10 {
+  margin-left: 10rpx;
+}
+.mr-10 {
+  margin-right: 10rpx;
+}
+.mt-10 {
+  margin-top: 10rpx;
+}
+.mb-10 {
+  margin-bottom: 10rpx;
+}
+.mx-10 {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.my-10 {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
 ```
 
 **`padding`对应的缩写：**
 
-* padding: p
-* padding-left: pl
-* padding-right: pr
-* padding-top: pt
-* padding-bottom: pb
-* padding-left & padding-right: px
-* padding-top & padding-bottom: py
+- padding: p
+- padding-left: pl
+- padding-right: pr
+- padding-top: pt
+- padding-bottom: pb
+- padding-left & padding-right: px
+- padding-top & padding-bottom: py
 
 例子：
 
@@ -200,25 +221,41 @@ module.exports = {
 <view class="p-10 pl-10 pr-10 pt-10 pb-10 px-10 py-10"></view>
 ```
 
-最终会生成如下css：
+最终会生成如下 css：
 
 ```css
-.p-10{padding: 10rpx}
-.pl-10{padding-left: 10rpx}
-.pr-10{padding-right: 10rpx}
-.pt-10{padding-top:10rpx}
-.pb-10{padding-bottom: 10rpx}
-.px-10{padding-left: 10rpx; padding-right: 10rpx}
-.py-10{padding-top: 10rpx; padding-bottom: 10rpx}
+.p-10 {
+  padding: 10rpx;
+}
+.pl-10 {
+  padding-left: 10rpx;
+}
+.pr-10 {
+  padding-right: 10rpx;
+}
+.pt-10 {
+  padding-top: 10rpx;
+}
+.pb-10 {
+  padding-bottom: 10rpx;
+}
+.px-10 {
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+}
+.py-10 {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
 ```
 
 **`width`、`height`、`border-radius`对应的缩写：**
 
-* width: w
-* width(%)：wp
-* height: h
-* height(%)：hp
-* border-radius: br
+- width: w
+- width(%)：wp
+- height: h
+- height(%)：hp
+- border-radius: br
 
 例子：
 
@@ -227,24 +264,34 @@ module.exports = {
 <view class="w-100.wp-50.h-100.hp-50.br-50"></view>
 ```
 
-最终会生成如下css：
+最终会生成如下 css：
 
 ```css
-.w-100{width: 100rpx}
-.wp-50{width: 50%}
-.h-100{height: 100rpx}
-.hp-50{height: 50%}
-.br-50{border-radius: 50rpx}
+.w-100 {
+  width: 100rpx;
+}
+.wp-50 {
+  width: 50%;
+}
+.h-100 {
+  height: 100rpx;
+}
+.hp-50 {
+  height: 50%;
+}
+.br-50 {
+  border-radius: 50rpx;
+}
 ```
 
 ### left、right、top、bottom
 
 对应的缩写：
 
-* left: l
-* right: r
-* top: t
-* bottom: b
+- left: l
+- right: r
+- top: t
+- bottom: b
 
 例子：
 
@@ -253,22 +300,30 @@ module.exports = {
 <view class="l-10.r-10.t-10.b-10"></view>
 ```
 
-最终会生成如下css：
+最终会生成如下 css：
 
 ```css
-.l-10{left: 10rpx}
-.r-10{right: 10rpx}
-.t-10{top: 10rpx}
-.b-10{bottom: 10rpx}
+.l-10 {
+  left: 10rpx;
+}
+.r-10 {
+  right: 10rpx;
+}
+.t-10 {
+  top: 10rpx;
+}
+.b-10 {
+  bottom: 10rpx;
+}
 ```
 
 ### line-height、font
 
 对应的缩写：
 
-* line-height: lh
-* font-size: fs
-* font-weight: fw
+- line-height: lh
+- font-size: fs
+- font-weight: fw
 
 > 注意：fw 一般用法是：fw-100、fw-200、fw-300、fw-400、fw-500、fw-600、fw-700、fw-800、fw-900，其他数值不生效
 
@@ -279,12 +334,18 @@ module.exports = {
 <view class="lh-100.fs-40.fw-600"></view>
 ```
 
-最终会生成如下css：
+最终会生成如下 css：
 
 ```css
-.lh-100{line-height: 100rpx}
-.fs-40{font-size: 40rpx}
-.fw-600{font-weight: 600}
+.lh-100 {
+  line-height: 100rpx;
+}
+.fs-40 {
+  font-size: 40rpx;
+}
+.fw-600 {
+  font-weight: 600;
+}
 ```
 
 ## 色值原子类
@@ -299,8 +360,12 @@ module.exports = {
 ```
 
 ```css
-.c-123a6d{color: #123a6d}
-.bgc-00ff00{background-color: #00ff00}
+.c-123a6d {
+  color: #123a6d;
+}
+.bgc-00ff00 {
+  background-color: #00ff00;
+}
 ```
 
 ## 通用原子类
@@ -398,11 +463,11 @@ module.exports = {
 }
 /* 图片占位色 */
 .bg-image {
-  background-color: #E1E3E8;
+  background-color: #e1e3e8;
 }
 /* 文字占位色 */
 .bg-text {
-  background-color: #F5F7FA;
+  background-color: #f5f7fa;
 }
 /* 背景loading图 */
 .bg-loading {
@@ -457,7 +522,8 @@ module.exports = {
 ### display
 
 ```css
-.dspl-inbl, .inbl {
+.dspl-inbl,
+.inbl {
   display: inline-block;
 }
 .dspl-bl {
@@ -593,10 +659,10 @@ module.exports = {
   opacity: 0;
 
   -webkit-transition: opacity 0.2s ease-in;
-     -moz-transition: opacity 0.2s ease-in;
-      -ms-transition: opacity 0.2s ease-in;
-       -o-transition: opacity 0.2s ease-in;
-          transition: opacity 0.2s ease-in;
+  -moz-transition: opacity 0.2s ease-in;
+  -ms-transition: opacity 0.2s ease-in;
+  -o-transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
 }
 
 .fadein {

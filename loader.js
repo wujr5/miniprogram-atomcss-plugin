@@ -62,15 +62,8 @@ let oOriginClassNameMap = {
   '.bgc': 'background-color: #',
 };
 
-let oAtomConfig = {};
+let oAtomConfig = null;
 let oClassNameMap = null;
-
-// 读取配置文件，如果不存在，就是用默认的配置文件
-try {
-  oAtomConfig = require(__dirname + '/../../src/atomcss.config.js');
-} catch (e) {
-  oAtomConfig = require(__dirname + '/atomcss.config.js');
-}
 
 // 获取原子类正则表达式
 function getAtomClassReg() {
@@ -178,6 +171,15 @@ function generateAtomCss(sClassString) {
 sAtomRegExp = getAtomClassReg();
 
 module.exports = function (sSource) {
+  if (!oAtomConfig) {
+    // 读取配置文件，如果不存在，就是用默认的配置文件
+    try {
+      oAtomConfig = require(__dirname + '/../../' + this.query.config);
+    } catch (e) {
+      oAtomConfig = require(__dirname + '/atomcss.config.js');
+    }
+  }
+
   // 从文件中提取所有类名
   let sClassString = getAllClassNameFromSource(sSource);
 
