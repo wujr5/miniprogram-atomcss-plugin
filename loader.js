@@ -67,9 +67,9 @@ let oClassNameMap = null;
 
 // 读取配置文件，如果不存在，就是用默认的配置文件
 try {
-  oAtomConfig = require(__dirname + '/src/atomcss.config.js');
+  oAtomConfig = require(__dirname + '/../../src/atomcss.config.js');
 } catch (e) {
-  oAtomConfig = require(__dirname + '/dist/atomcss.config.js');
+  oAtomConfig = require(__dirname + '/atomcss.config.js');
 }
 
 // 获取原子类正则表达式
