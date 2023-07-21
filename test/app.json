@@ -1,7 +1,5 @@
 {
-  "pages": [
-    "pages/test/test"
-  ],
+  "pages": ["pages/test/test", "pages/test2/test"],
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于签到签退定位"
@@ -12,7 +10,7 @@
     "navigationBarBackgroundColor": "#1EBE63",
     "navigationBarTitleText": "测试原子类",
     "navigationBarTextStyle": "white",
-    "enablePullDownRefresh":true
+    "enablePullDownRefresh": true
   },
   "debug": false,
   "style": "v2",
