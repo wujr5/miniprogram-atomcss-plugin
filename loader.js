@@ -64,6 +64,7 @@ let oOriginClassNameMap = {
 
 let oAtomConfig = null;
 let oClassNameMap = null;
+let sAtomRegExp = null;
 
 // 获取原子类正则表达式
 function getAtomClassReg() {
@@ -168,8 +169,6 @@ function generateAtomCss(sClassString) {
   return aStyleStr;
 }
 
-sAtomRegExp = getAtomClassReg();
-
 module.exports = function (sSource) {
   if (!oAtomConfig) {
     // 读取配置文件，如果不存在，就是用默认的配置文件
@@ -178,6 +177,7 @@ module.exports = function (sSource) {
     } catch (e) {
       oAtomConfig = require(__dirname + '/atomcss.config.js');
     }
+    sAtomRegExp = getAtomClassReg();
   }
 
   // 从文件中提取所有类名
