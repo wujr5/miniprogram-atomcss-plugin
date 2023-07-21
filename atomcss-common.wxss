@@ -111,27 +111,30 @@
   background-color: white;
 }
 .bg-yellow {
-  background-color: yellow;
+  background-color: #e39707;
 }
 .bg-blue {
-  background-color: blue;
+  background-color: #3894ff;
 }
 .bg-green {
-  background-color: green;
+  background-color: #35b953;
 }
 .bg-red {
-  background-color: red;
+  background-color: #e60707;
+}
+.bg-purple {
+  background-color: #75197c;
 }
 .bg-black {
   background-color: black;
 }
 /* 图片占位色 */
 .bg-image {
-  background-color: #E1E3E8;
+  background-color: #e1e3e8;
 }
 /* 文字占位色 */
 .bg-text {
-  background-color: #F5F7FA;
+  background-color: #f5f7fa;
 }
 
 .bg-loading {
@@ -146,16 +149,19 @@
   color: white;
 }
 .c-yellow {
-  color: yellow;
+  color: #e39707;
 }
 .c-blue {
-  color: blue;
+  color: #3894ff;
 }
 .c-green {
-  color: green;
+  color: #35b953;
 }
 .c-red {
-  color: red;
+  color: #e60707;
+}
+.c-purple {
+  color: #75197c;
 }
 .c-black {
   color: black;
@@ -180,9 +186,19 @@
 .inbl {
   display: inline-block;
 }
-
+.dspl-flex {
+  display: flex;
+}
 .dspl-bl {
   display: block;
+}
+.dspl-none {
+  display: none;
+}
+
+/* flex */
+.flex-auto {
+  flex: auto;
 }
 
 /* vertical-align */
