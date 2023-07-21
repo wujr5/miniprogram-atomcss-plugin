@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-let oClassNameMap = {
+let oOriginClassNameMap = {
   // margin
   '.m': 'margin:$rpx',
   '.ml': 'margin-left:$rpx',
@@ -64,44 +62,72 @@ let oClassNameMap = {
   '.bgc': 'background-color: #',
 };
 
-let oAtomConfig = {}
+let oAtomConfig = {};
+let oClassNameMap = null;
 
 // 读取配置文件，如果不存在，就是用默认的配置文件
 try {
-  oAtomConfig = require(__dirname + '/../../atomcss.config.js');
+  oAtomConfig = require(__dirname + '/src/atomcss.config.js');
 } catch (e) {
   oAtomConfig = require(__dirname + '/dist/atomcss.config.js');
 }
 
-oClassNameMap = Object.assign(oClassNameMap, oAtomConfig);
+// 获取原子类正则表达式
+function getAtomClassReg() {
+  oClassNameMap = {
+    ...oOriginClassNameMap,
+    ...(oAtomConfig || {}),
+  };
 
-// 生成正则表达式
-let sAtomRegExp = '';
-for (let key in oClassNameMap) {
-  let value = oClassNameMap[key];
+  // 生成正则表达式
+  let aAtomRegExp = [];
+  for (let key in oClassNameMap) {
+    let value = oClassNameMap[key];
 
-  // 数值原子类的正则
-  if (value.indexOf('$') != -1) {
-    sAtomRegExp += `\\${key}-[0-9]+|`;
+    // 数值原子类的正则
+    if (value.indexOf('$') != -1) {
+      aAtomRegExp.push(`\\${key}-[0-9]+`);
+    }
+    // 色值原子类正则
+    else if (value.indexOf('#') != -1) {
+      aAtomRegExp.push(`\\${key}-[0-9a-fA-F]+`);
+      // 通用原子类的正则
+    } else {
+      aAtomRegExp.push(`\\${key}`);
+    }
   }
-  // 色值原子类正则
-  else if (value.indexOf('#') != -1) {
-    sAtomRegExp += `\\${key}-[0-9a-fA-F]+|`;
-  // 通用原子类的正则
-  } else {
-    sAtomRegExp += `\\${key}|`
-  }
+
+  // 规则长的排在前面，保证全匹配
+  aAtomRegExp.sort((a, b) => b.length - a.length);
+
+  sAtomRegExp = aAtomRegExp.join('|');
+  return sAtomRegExp;
 }
 
-// 去掉最后一个 | 符号
-sAtomRegExp = sAtomRegExp.substr(0, sAtomRegExp.length - 1);
+// 从文件中提取所有类名
+function getAllClassNameFromSource(sSource) {
+  let sClassString =
+    '.' +
+    (
+      sSource.match(
+        /class=("|')([a-zA-Z0-9 \- _\{\}><\?\.'":\+\-\*\/\(\)\%\$\&\!\~\^\=]*)("|')/gi
+      ) || []
+    )
+      .map((item) =>
+        item
+          .replace(/class=('|")|("|')/g, '')
+          .split(' ')
+          .join('.')
+      )
+      .join('.');
 
-module.exports = function(sSource) {
+  return sClassString;
+}
+
+// 生成原子类
+function generateAtomCss(sClassString) {
+  // 获取原子类类名数组，并剔除重复的类名
   let atomReg = new RegExp(sAtomRegExp, 'ig');
-
-  let sClassString = '.' + (sSource.match(/class=("|')([a-zA-Z0-9 \- _\{\}><\?\.'":\+\-\*\/\(\)\%\$\&\!\~\^\=]*)("|')/ig) || []).map(item => item.replace(/class=('|")|("|')/g, '').split(' ').join('.')).join('.');
-
-  // 获取 pc 端原子类类名数组，并剔除重复的类名
   function uniq(value, index, self) {
     return self.indexOf(value) === index;
   }
@@ -111,26 +137,52 @@ module.exports = function(sSource) {
   let aStyleStr = [];
 
   // 开始生成原子类
-  aClassName.forEach(item => {
-    let bColorFlag = oClassNameMap[item.split('-')[0]] && oClassNameMap[item.split('-')[0]].indexOf('$') == -1 && oClassNameMap[item.split('-')[0]].indexOf('#') != -1;
+  aClassName.forEach((item) => {
+    let bColorFlag =
+      oClassNameMap[item.split('-')[0]] &&
+      oClassNameMap[item.split('-')[0]].indexOf('$') == -1 &&
+      oClassNameMap[item.split('-')[0]].indexOf('#') != -1 &&
+      /^[0-9a-fA-F]+$/.test(item.split('-')[1]); // 十六进制
 
     // 色值类
     if (bColorFlag) {
-      let sKey = item.match(/\.\w+/)[0];
-      let nValue = '#' + item.split('-')[1];
-      aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\#/g, nValue)}}`);
+      let tmp = item.split('-');
+      if (tmp.length > 1) {
+        let sKey = tmp.slice(0, tmp.length - 1).join('-');
+        let nValue = '#' + tmp[tmp.length - 1];
+        aStyleStr.push(
+          `${item}{${oClassNameMap[sKey].replace(/\#/g, nValue)}}`
+        );
+      }
     }
     // 数值类
     else if (/\d+/.test(item)) {
-      let sKey = item.match(/\.\w+/)[0];
-      let nValue = +item.match(/\d+/)[0];
-      aStyleStr.push(`${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`);
-    // 通用类
+      let tmp = item.split('-');
+      if (tmp.length > 1) {
+        let sKey = tmp.slice(0, tmp.length - 1).join('-');
+        let nValue = tmp[tmp.length - 1];
+        aStyleStr.push(
+          `${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`
+        );
+      }
+      // 通用类
     } else {
       let sKey = item;
       aStyleStr.push(`${item}{${oClassNameMap[sKey]}}`);
     }
   });
 
-  return `'' + '${aStyleStr.join('')}'`;
+  return aStyleStr;
 }
+
+sAtomRegExp = getAtomClassReg();
+
+module.exports = function (sSource) {
+  // 从文件中提取所有类名
+  let sClassString = getAllClassNameFromSource(sSource);
+
+  // 正式生成原子类
+  let aStyleStr = generateAtomCss(sClassString);
+
+  return `'' + '${aStyleStr.join('')}'`;
+};

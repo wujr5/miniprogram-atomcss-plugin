@@ -25,31 +25,33 @@ class MiniprogramAtomcssPlugin {
     const { RawSource } = webpack.sources;
 
     compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      compilation.hooks.processAssets.tap({
-        name: pluginName,
-        stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
-      }, (assets) => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: pluginName,
+          stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
+        },
+        (assets) => {
+          // 将所有原子类连接在一起
+          let content = '';
+          compilation.modules.forEach((module) => {
+            content += eval(module._source._value);
+          });
 
-        // 将所有原子类连接在一起
-        let content = '';
-        compilation.modules.forEach((module) => {
-          content += eval(module._source._value);
-        })
+          // 去重
+          function uniq(value, index, self) {
+            return self.indexOf(value) === index;
+          }
+          content = content.split('.').filter(uniq).join('.');
 
-        // 去重
-        function uniq(value, index, self) {
-          return self.indexOf(value) === index;
+          // 更新 output.filename 中指定的输出文件
+          compilation.updateAsset(
+            Object.keys(assets)[0],
+            new RawSource(content)
+          );
         }
-        content = content.split('.').filter(uniq).join('.');
-
-        // 更新 output.filename 中指定的输出文件
-        compilation.updateAsset(
-          Object.keys(assets)[0],
-          new RawSource(content)
-        );
-      });
+      );
     });
   }
-};
+}
 
 module.exports = MiniprogramAtomcssPlugin;

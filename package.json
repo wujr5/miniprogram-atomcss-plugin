@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-atomcss-plugin",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "homepage": "https://github.com/wujr5/miniprogram-atomcss-plugin",
   "repository": {
     "type": "git",
@@ -9,6 +9,11 @@
   "miniprogram": "dist",
   "description": "基于微信小程序的按需生成原子类样式的webpack插件",
   "main": "plugin.js",
+  "files": [
+    "atomcss-common.wxss",
+    "loader.js",
+    "plugin.js"
+  ],
   "scripts": {
     "test": "cd test && npm run dev"
   },
