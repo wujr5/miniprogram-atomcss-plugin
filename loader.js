@@ -144,9 +144,10 @@ function generateAtomCss(sClassString) {
       if (tmp.length > 1) {
         let sKey = tmp.slice(0, tmp.length - 1).join('-');
         let nValue = '#' + tmp[tmp.length - 1];
-        aStyleStr.push(
-          `${item}{${oClassNameMap[sKey].replace(/\#/g, nValue)}}`
-        );
+        oClassNameMap[sKey] &&
+          aStyleStr.push(
+            `${item}{${oClassNameMap[sKey].replace(/\#/g, nValue)}}`
+          );
       }
     }
     // 数值类
@@ -155,14 +156,15 @@ function generateAtomCss(sClassString) {
       if (tmp.length > 1) {
         let sKey = tmp.slice(0, tmp.length - 1).join('-');
         let nValue = tmp[tmp.length - 1];
-        aStyleStr.push(
-          `${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`
-        );
+        oClassNameMap[sKey] &&
+          aStyleStr.push(
+            `${item}{${oClassNameMap[sKey].replace(/\$/g, nValue)}}`
+          );
       }
       // 通用类
     } else {
       let sKey = item;
-      aStyleStr.push(`${item}{${oClassNameMap[sKey]}}`);
+      oClassNameMap[sKey] && aStyleStr.push(`${item}{${oClassNameMap[sKey]}}`);
     }
   });
 
