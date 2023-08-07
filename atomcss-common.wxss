@@ -172,52 +172,176 @@
 
 /* 字体位置 */
 .t-c {
-  text-align: center !important;
+  text-align: center;
 }
 .t-l {
-  text-align: left !important;
+  text-align: left;
 }
 .t-r {
+  text-align: right;
+}
+.t-c-i {
+  text-align: center !important;
+}
+.t-l-i {
+  text-align: left !important;
+}
+.t-r-i {
   text-align: right !important;
 }
 
 /* display */
 .dspl-inbl,
 .inbl {
-  display: inline-block !important;
+  display: inline-block;
 }
 .dspl-flex {
-  display: flex !important;
+  display: flex;
 }
 .dspl-bl {
-  display: block !important;
+  display: block;
 }
 .dspl-none {
+  display: none;
+}
+
+.dspl-inbl-i,
+.inbl-i {
+  display: inline-block !important;
+}
+.dspl-flex-i {
+  display: flex !important;
+}
+.dspl-bl-i {
+  display: block !important;
+}
+.dspl-none-i {
   display: none !important;
 }
 
 /* flex */
 .flex-auto {
+  flex: auto;
+}
+.flex-auto-i {
   flex: auto !important;
 }
 
 /* vertical-align */
 .vtal-md {
-  vertical-align: middle !important;
+  vertical-align: middle;
 }
 .vtal-bt {
-  vertical-align: bottom !important;
+  vertical-align: bottom;
 }
 .vtal-top {
+  vertical-align: top;
+}
+.vtal-md-i {
+  vertical-align: middle !important;
+}
+.vtal-bt-i {
+  vertical-align: bottom !important;
+}
+.vtal-top-i {
   vertical-align: top !important;
 }
 
 /* float */
 .fl-r {
-  float: right !important;
+  float: right;
 }
 .fl-l {
+  float: left;
+}
+.fl-r-i {
+  float: right !important;
+}
+.fl-l-i {
   float: left !important;
+}
+
+/* position */
+.pst-rlt {
+  position: relative;
+}
+.pst-absl {
+  position: absolute;
+}
+.pst-fx {
+  position: fixed;
+}
+.pst-stk {
+  position: sticky;
+}
+.pst-rlt-i {
+  position: relative !important;
+}
+.pst-absl-i {
+  position: absolute !important;
+}
+.pst-fx-i {
+  position: fixed !important;
+}
+.pst-stk-i {
+  position: sticky !important;
+}
+
+/* overflow */
+.ovfl-hd {
+  overflow: hidden;
+}
+.ovfl-scroll {
+  overflow: scroll;
+}
+.ovfl-vsb {
+  overflow: visible;
+}
+.ovfl-x-hd {
+  overflow-x: hidden;
+}
+.ovfl-x-scroll {
+  overflow-x: scroll;
+}
+.ovfl-x-auto {
+  overflow-x: auto;
+}
+.ovfl-y-hd {
+  overflow-y: hidden;
+}
+.ovfl-y-scroll {
+  overflow-y: scroll;
+}
+.ovfl-y-auto {
+  overflow-y: auto;
+}
+
+.ovfl-hd-i {
+  overflow: hidden !important;
+}
+.ovfl-scroll-i {
+  overflow: scroll !important;
+}
+.ovfl-vsb-i {
+  overflow: visible !important;
+}
+.ovfl-x-hd-i {
+  overflow-x: hidden !important;
+}
+.ovfl-x-scroll-i {
+  overflow-x: scroll !important;
+}
+.ovfl-x-auto-i {
+  overflow-x: auto !important;
+}
+.ovfl-y-hd-i {
+  overflow-y: hidden !important;
+}
+.ovfl-y-scroll-i {
+  overflow-y: scroll !important;
+}
+.ovfl-y-auto-i {
+  overflow-y: auto !important;
 }
 
 /* 鼠标 */
@@ -233,48 +357,6 @@
   box-sizing: border-box;
 }
 
-/* position */
-.pst-rlt {
-  position: relative !important;
-}
-.pst-absl {
-  position: absolute !important;
-}
-.pst-fx {
-  position: fixed !important;
-}
-.pst-stk {
-  position: sticky !important;
-}
-
-/* overflow */
-.ovfl-hd {
-  overflow: hidden !important;
-}
-.ovfl-scroll {
-  overflow: scroll !important;
-}
-.ovfl-vsb {
-  overflow: visible !important;
-}
-.ovfl-x-hd {
-  overflow-x: hidden !important;
-}
-.ovfl-x-scroll {
-  overflow-x: scroll !important;
-}
-.ovfl-x-auto {
-  overflow-x: auto !important;
-}
-.ovfl-y-hd {
-  overflow-y: hidden !important;
-}
-.ovfl-y-scroll {
-  overflow-y: scroll !important;
-}
-.ovfl-y-auto {
-  overflow-y: auto !important;
-}
 /* 水平滑动 */
 .h-scroll {
   overflow-x: scroll;
