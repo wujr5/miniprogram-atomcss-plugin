@@ -172,52 +172,52 @@
 
 /* 字体位置 */
 .t-c {
-  text-align: center;
+  text-align: center !important;
 }
 .t-l {
-  text-align: left;
+  text-align: left !important;
 }
 .t-r {
-  text-align: right;
+  text-align: right !important;
 }
 
 /* display */
 .dspl-inbl,
 .inbl {
-  display: inline-block;
+  display: inline-block !important;
 }
 .dspl-flex {
-  display: flex;
+  display: flex !important;
 }
 .dspl-bl {
-  display: block;
+  display: block !important;
 }
 .dspl-none {
-  display: none;
+  display: none !important;
 }
 
 /* flex */
 .flex-auto {
-  flex: auto;
+  flex: auto !important;
 }
 
 /* vertical-align */
 .vtal-md {
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 .vtal-bt {
-  vertical-align: bottom;
+  vertical-align: bottom !important;
 }
 .vtal-top {
-  vertical-align: top;
+  vertical-align: top !important;
 }
 
 /* float */
 .fl-r {
-  float: right;
+  float: right !important;
 }
 .fl-l {
-  float: left;
+  float: left !important;
 }
 
 /* 鼠标 */
@@ -235,42 +235,45 @@
 
 /* position */
 .pst-rlt {
-  position: relative;
+  position: relative !important;
 }
 .pst-absl {
-  position: absolute;
+  position: absolute !important;
 }
 .pst-fx {
-  position: fixed;
+  position: fixed !important;
+}
+.pst-stk {
+  position: sticky !important;
 }
 
 /* overflow */
 .ovfl-hd {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 .ovfl-scroll {
-  overflow: scroll;
+  overflow: scroll !important;
 }
 .ovfl-vsb {
-  overflow: visible;
+  overflow: visible !important;
 }
 .ovfl-x-hd {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 .ovfl-x-scroll {
-  overflow-x: scroll;
+  overflow-x: scroll !important;
 }
 .ovfl-x-auto {
-  overflow-x: auto;
+  overflow-x: auto !important;
 }
 .ovfl-y-hd {
-  overflow-y: hidden;
+  overflow-y: hidden !important;
 }
 .ovfl-y-scroll {
-  overflow-y: scroll;
+  overflow-y: scroll !important;
 }
 .ovfl-y-auto {
-  overflow-y: auto;
+  overflow-y: auto !important;
 }
 /* 水平滑动 */
 .h-scroll {
